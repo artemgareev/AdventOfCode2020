@@ -75,10 +75,6 @@ var passportElementValidators = map[string]validator{
 var dataUnitReg = regexp.MustCompile(`(\w{3}:[\#\w]*)`)
 
 func main() {
-	cm := regexp.MustCompile(`(?:15[0-9]|1[6-8][0-9]|19[0-2]cm)`)
-	fmt.Println(cm.MatchString("192"))
-	fmt.Println(cm.MatchString("193"))
-
 	bytes, _ := ioutil.ReadAll(os.Stdin)
 	passportsData := strings.Split(string(bytes), "\n\n")
 

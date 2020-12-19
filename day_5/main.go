@@ -37,19 +37,13 @@ func main() {
 	bytes, _ := ioutil.ReadAll(os.Stdin)
 	boardingPasses := strings.Split(string(bytes), "\n")
 
-	highestPass := 0
-	seatsNumbers := []int{}
+	seatsNumbers := make([]int, 0, len(boardingPasses))
 	for _, pass := range boardingPasses {
-		passSeatNumber := getSeatNumberByBoardingPass(pass)
-		if passSeatNumber > highestPass {
-			highestPass = passSeatNumber
-		}
-
-		seatsNumbers = append(seatsNumbers, passSeatNumber)
+		seatsNumbers = append(seatsNumbers, getSeatNumberByBoardingPass(pass))
 	}
-
 	sort.Ints(seatsNumbers)
-	fmt.Println("Part #1 answer:", highestPass)
+
+	fmt.Println("Part #1 answer:", seatsNumbers[len(seatsNumbers)-1])
 	prev := seatsNumbers[0]
 	for i := 1; i < len(seatsNumbers); i++ {
 		if (seatsNumbers[i] - prev) > 1 {

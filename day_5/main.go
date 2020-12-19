@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -37,11 +38,24 @@ func main() {
 	boardingPasses := strings.Split(string(bytes), "\n")
 
 	highestPass := 0
+	seatsNumbers := []int{}
 	for _, pass := range boardingPasses {
 		passSeatNumber := getSeatNumberByBoardingPass(pass)
 		if passSeatNumber > highestPass {
 			highestPass = passSeatNumber
 		}
+
+		seatsNumbers = append(seatsNumbers, passSeatNumber)
 	}
-	fmt.Println(highestPass)
+
+	sort.Ints(seatsNumbers)
+	fmt.Println("Part #1 answer:", highestPass)
+	prev := seatsNumbers[0]
+	for i := 1; i < len(seatsNumbers); i++ {
+		if (seatsNumbers[i] - prev) > 1 {
+			fmt.Println("Part #2 answer:", seatsNumbers[i]-1)
+			break
+		}
+		prev = seatsNumbers[i]
+	}
 }
